@@ -115,11 +115,15 @@
 	key = "flap"
 	key_third_person = "flaps"
 	message = "flaps their wings."
+	message_robot = "emits a runtime error: Cannot flap non-existent wings."
+	message_AI = "emits a runtime error: Cannot flap non-existent wings."
 	hands_use_check = TRUE
 	var/wing_time = 20
 
 /datum/emote/living/flap/run_emote(mob/user, params, type_override, intentional)
-	. = ..()
+
+	if (istype(user, /mob/living/simple_animal/chicken))
+		return
 	if(. && ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/open = FALSE
@@ -130,12 +134,19 @@
 				wings.close_wings()
 			else
 				wings.open_wings()
+
 			addtimer(CALLBACK(wings, open ? /obj/item/organ/external/wings/functional.proc/open_wings : /obj/item/organ/external/wings/functional.proc/close_wings), wing_time)
+		else
+			message = "Flaps their arms around like an idiot"
+		return
+	. = ..()
 
 /datum/emote/living/flap/aflap
 	key = "aflap"
 	key_third_person = "aflaps"
 	message = "flaps their wings ANGRILY!"
+	message_robot = "emits a runtime error: Cannot flap non-existent wings."
+	message_AI = "emits a runtime error: Cannot flap non-existent wings."
 	hands_use_check = TRUE
 	wing_time = 10
 
