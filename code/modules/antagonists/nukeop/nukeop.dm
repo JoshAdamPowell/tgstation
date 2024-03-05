@@ -266,9 +266,13 @@
 	if(!CONFIG_GET(flag/disable_warops))
 		return FALSE
 	var/minimum_war_threat = CONFIG_GET(number/minimum_war_threat)
-	if ()
+	if (SSdynamic.threat_level < minimum_war_threat)
+		return FALSE
+	return TRUE
 
 /datum/antagonist/nukeop/leader/greet()
+	if(!can_war())
+		return
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ops.ogg',100,0, use_reverb = FALSE)
 	to_chat(owner, "<span class='warningplain'><B>You are the Syndicate [title] for this mission. You are responsible for guiding the team and your ID is the only one who can open the launch bay doors.</B></span>")
 	to_chat(owner, "<span class='warningplain'><B>If you feel you are not up to this task, give your ID and radio to another operative.</B></span>")
