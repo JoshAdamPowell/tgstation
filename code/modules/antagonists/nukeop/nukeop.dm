@@ -261,6 +261,13 @@
 			H.put_in_hands(nuke_code_paper, TRUE)
 			H.update_icons()
 
+/datum/antagonist/nukeop/leader/can_war()
+	..()
+	if(!CONFIG_GET(flag/disable_warops))
+		return FALSE
+	var/minimum_war_threat = CONFIG_GET(number/minimum_war_threat)
+	if ()
+
 /datum/antagonist/nukeop/leader/greet()
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ops.ogg',100,0, use_reverb = FALSE)
 	to_chat(owner, "<span class='warningplain'><B>You are the Syndicate [title] for this mission. You are responsible for guiding the team and your ID is the only one who can open the launch bay doors.</B></span>")
